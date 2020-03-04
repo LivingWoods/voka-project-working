@@ -11,11 +11,11 @@ if($_POST['submit'])
     $achternaam = $_POST['achternaam'];
     $email = $_POST['email'];
     $functie = $_POST['functienaam'];
+    $statuut = $_POST['statuut'];
     $wachtwoord = $_POST['wachtwoord'];
     $wachtwoordHash = password_hash($wachtwoord, PASSWORD_DEFAULT);
-    $query = "INSERT INTO Werknemers(wnVoornaam, wnAchternaam, wnFunctie, wnEmail, wnWachtwoord)";
-    $query .= "VALUES ('$voornaam', '$achternaam', '$functie', '$email', '$wachtwoordHash')";
-    $result = mysqli_query($connection, $query);
+    $query = "INSERT INTO Werknemers(wnVoornaam, wnAchternaam, wnFunctie, wnStatuut, wnEmail, wnWachtwoord)";
+    $query .= "VALUES ('$voornaam', '$achternaam', '$functie', '$statuut', '$email', '$wachtwoordHash')";
 }
 ?>
 
@@ -35,9 +35,13 @@ if($_POST['submit'])
             <input type="email" class="invoerlabel" name="email" placeholder="Email-adres">
             <input type="text" class="invoerlabel" name="wachtwoord" placeholder="Wachtwoord">            
             <select name="functienaam" id="functienaam">
-            <?php $query = "SELECT FunctieNaam AS FunctieNaam FROM Functies"; $result = mysqli_query($connection, $query); while($row = mysqli_fetch_assoc($result)){echo '<option value="' . $row['FunctieNaam'] . '" name="functie"' . $row['FunctieNaam'] . '">' . $row['FunctieNaam'] . '</option>';}?> 
+                <?php $query = "SELECT FunctieNaam AS FunctieNaam FROM Functies"; $result = mysqli_query($connection, $query); while($row = mysqli_fetch_assoc($result)){echo '<option value="' . $row['FunctieNaam'] . '" name="functie"' . $row['FunctieNaam'] . '">' . $row['FunctieNaam'] . '</option>';}?> 
+            </select>
+            <select name="functienaam" id="functienaam">
+            <?php $statuutQuery = "SELECT statuutNaam AS StatuutNaam FROM Statuten;"; $result = mysqli_query($connection, $statuutQuery); while($row = mysqli_fetch_assoc($result)){echo '<option value="' . $row['StatuutNaam'] . '" name="statuut"' . $row['StatuutNaam'] . '">' . $row['StatuutNaam'] . '</option>';}?>
             </select>
             <input type="submit" name="submit" value="Voeg toe">
         </form>
     </body>
 </html>
+
